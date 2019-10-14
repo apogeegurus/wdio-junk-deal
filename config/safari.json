@@ -1,0 +1,9 @@
+{
+    "capabilities": [
+        {
+            "browserName": "safari",
+            "safari:safariOptions": {},
+            "extra:options": {}
+        }
+    ]
+}

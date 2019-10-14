@@ -1,0 +1,15 @@
+schemaVersion: 2.0
+
+timeout: 20
+
+pipelines:
+    # Pull request build from all branches
+    - build:
+          template: buildozer:v1:prb
+      machine:
+          env:
+              PIPELINE_TYPE: 'pie-prb'
+      publish:
+          reports:
+              junit:
+                  path: '**/test-results/junit.xml'

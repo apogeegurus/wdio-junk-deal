@@ -1,0 +1,8 @@
+node_modules
+allure-report
+allure-results
+.DS_store
+wdio-framework-core.iml
+.idea
+log
+test-results
