@@ -17,6 +17,12 @@ const convict = require('convict');
 const EXTRA_OPTIONS = 'extra:options';
 
 const appConfig = convict({
+    logLevel: {
+        doc: 'The required test execution log level',
+        format: String,
+        default: 'verbose',
+        env: 'LOG_LEVEL',
+    },
     env: {
         doc: 'The application environment',
         format: String,
