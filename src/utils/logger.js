@@ -1,5 +1,6 @@
 import { createLogger, format, transports } from 'winston';
 import moment from 'moment';
+import { appConfig } from '../../config/appConfig';
 
 const { combine, timestamp, colorize, printf } = format;
 
@@ -8,7 +9,7 @@ const formatter = printf(info => {
 });
 
 const logger = createLogger({
-    level: process.env.LOG_LEVEL || 'verbose',
+    level: appConfig.get('logLevel'),
     format: combine(timestamp(), colorize(), formatter),
     transports: [
         new transports.File({
