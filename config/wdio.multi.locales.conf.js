@@ -12,6 +12,7 @@ const clone = require('clone');
 const { createFolders, servicesHealthCheck } = require('../src/utils/initFunctions');
 const { appConfig, EXTRA_OPTIONS } = require('./appConfig');
 const defaultCapabilities = appConfig.get('capabilities');
+const mergeResults = require('wdio-mochawesome-reporter/mergeResults');
 
 /*
  This is an example of generating capabilities based on a list of locales. This functionality can generalized to
@@ -40,6 +41,10 @@ exports.config = {
     // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
     // on a remote machine).
     runner: 'local',
+
+    hostname: appConfig.get('hostname'),
+    protocol: appConfig.get('protocol'),
+    port: appConfig.get('port'),
     //
     // ==================
     // Specify Test Files
@@ -51,9 +56,7 @@ exports.config = {
     //
     specs: ['./specs/multi-locale/**/*.spec.js'],
     // Patterns to exclude.
-    exclude: [
-        // 'path/to/excluded/files'
-    ],
+    exclude: appConfig.get('exclude'),
     //
     // ============
     // Capabilities
@@ -150,6 +153,21 @@ exports.config = {
                 outputDir: 'allure-results',
                 disableWebdriverStepsReporting: true,
                 disableWebdriverScreenshotsReporting: true,
+            },
+        ],
+        [
+            'junit',
+            {
+                outputDir: './test-results/junit',
+                outputFileFormat: function(options) {
+                    return `wdio-${options.cid}-${options.capabilities['webdriver.remote.sessionid']}.xml`;
+                },
+            },
+        ],
+        [
+            'mochawesome',
+            {
+                outputDir: './test-results/mochawesome',
             },
         ],
     ],
@@ -284,10 +302,11 @@ exports.config = {
      * @param {Object} exitCode 0 - success, 1 - fail
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
-     * @param {<Object>} results object containing test results
+     * @param {Object} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+    onComplete: function(exitCode, config, capabilities, results) {
+        mergeResults('./test-results/mochawesome', 'wdio-*', 'wdio-ma-merged.json');
+    },
     /**
      * Gets executed when a refresh happens.
      * @param {String} oldSessionId session ID of the old session
