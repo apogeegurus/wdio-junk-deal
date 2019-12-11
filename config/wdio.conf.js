@@ -8,6 +8,7 @@
 
 const { createFolders, servicesHealthCheck } = require('../src/utils/initFunctions');
 const { appConfig } = require('./appConfig');
+const mergeResults = require('wdio-mochawesome-reporter/mergeResults');
 
 exports.config = {
     //
@@ -18,6 +19,10 @@ exports.config = {
     // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
     // on a remote machine).
     runner: 'local',
+
+    hostname: appConfig.get('hostname'),
+    protocol: appConfig.get('protocol'),
+    port: appConfig.get('port'),
     //
     // ==================
     // Specify Test Files
@@ -29,9 +34,7 @@ exports.config = {
     //
     specs: ['./specs/single-locale/**/*.spec.js'],
     // Patterns to exclude.
-    exclude: [
-        // 'path/to/excluded/files'
-    ],
+    exclude: appConfig.get('exclude'),
     //
     // ============
     // Capabilities
@@ -127,6 +130,21 @@ exports.config = {
                 outputDir: 'allure-results',
                 disableWebdriverStepsReporting: true,
                 disableWebdriverScreenshotsReporting: true,
+            },
+        ],
+        [
+            'junit',
+            {
+                outputDir: './test-results/junit',
+                outputFileFormat: function(options) {
+                    return `wdio-${options.cid}-${options.capabilities['webdriver.remote.sessionid']}.xml`;
+                },
+            },
+        ],
+        [
+            'mochawesome',
+            {
+                outputDir: './test-results/mochawesome',
             },
         ],
     ],
@@ -260,10 +278,11 @@ exports.config = {
      * @param {Object} exitCode 0 - success, 1 - fail
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
-     * @param {<Object>} results object containing test results
+     * @param {Object} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+    onComplete: function(exitCode, config, capabilities, results) {
+        mergeResults('./test-results/mochawesome', 'wdio-*', 'wdio-ma-merged.json');
+    },
     /**
      * Gets executed when a refresh happens.
      * @param {String} oldSessionId session ID of the old session

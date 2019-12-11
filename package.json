@@ -1,7 +1,7 @@
 {
     "name": "wdio-framework-core",
     "version": "1.0.0",
-    "description": "A WEBDRIVERIO-based testing framework for FE testing",
+    "description": "A WEBDRIVERIO-based testing framework for web applications testing",
     "homepage": "",
     "main": "index.js",
     "engines": {
@@ -10,16 +10,18 @@
     },
     "scripts": {
         "test": "mocha --config config/mocha.unit.conf.js",
-        "test:it": "wdio config/wdio.conf.js",
-        "test:it:multi-locales": "wdio config/wdio.multi.locales.conf.js",
+        "test:it": "npm run cleanup && wdio config/wdio.conf.js",
+        "test:it:multi-locales": "npm run cleanup && wdio config/wdio.multi.locales.conf.js",
         "report:allure": "allure generate --clean allure-results -o allure-report",
         "report:allure-serve": "allure serve allure-results",
+        "report:ma": "marge test-results/mochawesome/wdio-ma-merged.json",
         "lint:all": "eslint \"src/**/*.js\" \"specs/**/*.js\"",
         "prettier:staged": "pretty-quick --staged",
         "prettier:check": "prettier --check \"src/**/*.js\" \"specs/**/*.js\"",
         "prettier:fix": "prettier \"src/**/*.js\" \"specs/**/*.js\"",
         "lint:staged": "lint-staged",
-        "verify-staged": "npm run lint:staged && npm run prettier:staged"
+        "verify-staged": "npm run lint:staged && npm run prettier:staged",
+        "cleanup": "rm -rf test-results"
     },
     "keywords": [],
     "author": "",
@@ -48,6 +50,7 @@
         "json5": "^2.1.0",
         "lint-staged": "^8.1.7",
         "mocha-multi-reporters": "^1.1.7",
+        "mochawesome-report-generator": "^4.0.1",
         "moment": "^2.24.0",
         "pixelmatch": "^5.0.2",
         "pngjs": "^3.4.0",
@@ -56,6 +59,7 @@
         "require-from-string": "^2.0.2",
         "save-dev": "^2.0.0",
         "typescript": "^3.5.1",
+        "wdio-mochawesome-reporter": "^3.2.0",
         "winston": "^3.2.1"
     },
     "husky": {

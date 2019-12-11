@@ -13,9 +13,8 @@ const fs = require('fs');
  * @param {string} services[].url The URL of a service that will checked.
  */
 function servicesHealthCheck(services) {
-    console.log(`Checking health check for services: '${services.map(x => x.name)}'`);
+    console.log(`Performing health check for services: '${services.map(x => x.name)}'`);
     services.forEach(service => {
-        let serviceIsDown = false;
         request(
             {
                 url: service.url,
@@ -24,11 +23,10 @@ function servicesHealthCheck(services) {
             (error, response) => {
                 if (error || response.statusCode !== 200) {
                     console.error(`'${service.name}' isn't available on ${service.url}\n`);
-                    serviceIsDown = true;
+                    process.exit(-1);
                 }
             }
         );
-        if (serviceIsDown) process.exit(-1);
     });
 }
 

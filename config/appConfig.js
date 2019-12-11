@@ -17,6 +17,42 @@ const convict = require('convict');
 const EXTRA_OPTIONS = 'extra:options';
 
 const appConfig = convict({
+    hostname: {
+        doc: 'The hostname of the Selenium instance',
+        format: 'url',
+        default: 'localhost',
+        env: 'SELENIUM_HOST',
+    },
+    protocol: {
+        doc: 'The protocol being used to connect to the Selenium instance',
+        format: String,
+        default: 'http',
+        env: 'SELENIUM_PROTOCOL',
+    },
+    webDriverProtocol: {
+        doc: 'The type of a WebDriver protocol to be used by WDIO. It is either w3c or localChrome',
+        format: String,
+        default: '',
+        env: 'WEBDRIVER_PROTOCOL',
+    },
+    port: {
+        doc: 'The port being used to connect to the Selenium instance',
+        format: 'port',
+        default: 4444,
+        env: 'SELENIUM_PORT',
+    },
+    path: {
+        doc: 'The path being used to connect to the Selenium instance',
+        format: String,
+        default: '/wd/hub',
+        env: 'SELENIUM_PATH',
+    },
+    exclude: {
+        doc: 'Patterns of the tests that need to be excluded from test execution',
+        format: Array,
+        default: [],
+        env: 'EXCLUDE',
+    },
     logLevel: {
         doc: 'The required test execution log level',
         format: String,
