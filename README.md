@@ -37,10 +37,10 @@ The list of features includes:
 
 ### Test Execution
 
-Navigate to the test framework folder
-Run npm install
-To run UI functional tests: npm run test:it
-For performance tests: PERF_RUNS=5 PERF_CYCLES=5 npm run test:it:performance
+-   Navigate to the test framework folder
+-   Run npm install
+-   To run UI functional tests: npm run test:it
+-   For performance tests: PERF_RUNS=5 PERF_CYCLES=5 npm run test:it:performance
 
 ### Folders Structure
 
