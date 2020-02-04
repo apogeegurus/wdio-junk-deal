@@ -1,4 +1,4 @@
-# wdio-framework-core
+# junkdeal-wdio-framework
 
 This codebase is a minimum configuration of a WebDriverIO based testing framework, that includes a set of useful
 features simplifying testing.
@@ -14,12 +14,11 @@ The list of features includes:
 -   Classes for common FE testing use cases.
 -   Publishing test results to PIE Quality (UNDER DEVELOPMENT).
 
-**CORE** is used as a short name for this codebase.
-
 ## Contents
 
 [Features](#features)
 
+-   [Test Execution](#test-execution)
 -   [Folders Structure](#folders-structure)
 -   [Configuration Management](#configuration-management)
 -   [Code Sanity](#code-sanity)
@@ -35,6 +34,13 @@ The list of features includes:
 -   [Unit Testing](#unit-testing)
 
 ## Features
+
+### Test Execution
+
+Navigate to the test framework folder
+Run npm install
+To run UI functional tests: npm run test:it
+For performance tests: PERF_RUNS=5 PERF_CYCLES=5 npm run test:it:performance
 
 ### Folders Structure
 

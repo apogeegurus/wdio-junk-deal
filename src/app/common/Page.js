@@ -79,6 +79,29 @@ export class Page {
         );
     }
 
+    gradualScrollTo(pageLocation) {
+        let times = 0;
+        let xEnd = 100;
+        switch (pageLocation) {
+            case 'top':
+                times = 40;
+                xEnd = -Math.abs(xEnd);
+                break;
+            case 'middle':
+                times = 15;
+                break;
+            case 'bottom':
+                times = 40;
+                break;
+            default:
+                logger.error(`Didn't spacify page location`);
+        }
+        for (let i = 0; i < times; i++) {
+            this.scrollByWithinWindow(0, xEnd);
+            browser.pause(100);
+        }
+    }
+
     /*
      * Verifies that the give element is located within the viewport.
      *

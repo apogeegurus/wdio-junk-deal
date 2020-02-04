@@ -1,7 +1,9 @@
 import { logger } from '../../utils/logger';
+import { HomePage } from '../pages/home-page/HomePage';
+import { assert } from 'chai';
 
 const urlPatterns = {
-    YOUR_PAGE: /.*\/your.page.com\/$/, // Add patterns for pages of the SUT.
+    HOME_PAGE: /\/$/, // Add patterns for pages of the SUT.
 };
 
 /**
@@ -13,26 +15,31 @@ export function instantiatePage() {
     const url = browser.getUrl();
     logger.debug(`Instantiate new page with url='${url}'`);
 
-    if (urlPatterns.YOUR_PAGE.test(url)) {
-        /* Next lines need to updated to support pages of your SUT.
+    // if (urlPatterns.YOUR_PAGE.test(url)) {
+    //     /Next lines need to updated to support pages of your SUT.
 
-        const urlParts = url.split(urlPatterns.HAND_OFF);
-        const sourcePageParts = urlParts[1].split('/');
-        const collection = sourcePageParts[1] ? sourcePageParts[1] : '';
-        logger.debug(
-            `Detected 'HANDOFF' page from '${sourcePageParts[0]}' for collection='${collection}' with item='${
-                urlParts[2]
-            }' and selection='${urlParts[3]}'`
-        );
-        return new HandOff({
-            sourcePage: sourcePageParts[0],
-            collection: collection,
-            item: urlParts[2],
-            selection: urlParts[3],
-            handOffType: urlParts[4],
-        });
-        */
-        return {};
+    //     const urlParts = url.split(urlPatterns.HAND_OFF);
+    //     const sourcePageParts = urlParts[1].split('/');
+    //     const collection = sourcePageParts[1] ? sourcePageParts[1] : '';
+    //     logger.debug(
+    //         `Detected 'HANDOFF' page from '${sourcePageParts[0]}' for collection='${collection}' with item='${
+    //             urlParts[2]
+    //         }' and selection='${urlParts[3]}'`
+    //     );
+    //     return new HandOff({
+    //         sourcePage: sourcePageParts[0],
+    //         collection: collection,
+    //         item: urlParts[2],
+    //         selection: urlParts[3],
+    //         handOffType: urlParts[4],
+    //     });
+
+    //     return {};
+    // }
+
+    if (urlPatterns.HOME_PAGE.test(url)) {
+        logger.debug(`Detected 'HOME_PAGE' page`);
+        return new HomePage();
     }
 
     const errorMessage = `Couldn't detect correct page type for url='${url}'`;
@@ -55,6 +62,6 @@ function instantiateSpecificPage(pageType) {
 
 // Syntax sugar.
 
-export function getYourPage() {
-    return instantiateSpecificPage('YOUR_PAGE');
+export function getHomePage() {
+    return instantiateSpecificPage('HOME_PAGE');
 }

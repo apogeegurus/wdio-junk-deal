@@ -11,6 +11,7 @@
     "scripts": {
         "test": "mocha --config config/mocha.unit.conf.js",
         "test:it": "npm run cleanup && wdio config/wdio.conf.js",
+        "test:it:performance": "npm run cleanup && wdio config/wdio.performance.conf.js",
         "test:it:multi-locales": "npm run cleanup && wdio config/wdio.multi.locales.conf.js",
         "report:allure": "allure generate --clean allure-results -o allure-report",
         "report:allure-serve": "allure serve allure-results",

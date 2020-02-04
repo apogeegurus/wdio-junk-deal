@@ -3,7 +3,7 @@
  * It has only one variable 'element' that wraps WebdriverIO.Element.
  * By default, JS implicitly defines the constructor in all children classes.
  */
-export class Component {
+export class Section {
     constructor(element) {
         this.element = element;
     }
@@ -31,5 +31,13 @@ export class Component {
      */
     click() {
         this.element.click();
+    }
+
+    /**
+     * Is used to get rid of usage of '.element' on Component objects for waitForDisplayed().
+     * @param {number} timeout
+     */
+    waitForDisplayed(timeout) {
+        this.element.waitForDisplayed(timeout);
     }
 }

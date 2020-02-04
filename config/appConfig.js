@@ -23,6 +23,18 @@ const appConfig = convict({
         default: 'localhost',
         env: 'SELENIUM_HOST',
     },
+    perfRuns: {
+        doc: 'The number of runs before collecting performance metrics',
+        format: Number,
+        default: 5,
+        env: 'PERF_RUNS',
+    },
+    perfCycles: {
+        doc: 'The number of cycles of collecting performance metrics',
+        format: Number,
+        default: 3,
+        env: 'PERF_CYCLES',
+    },
     protocol: {
         doc: 'The protocol being used to connect to the Selenium instance',
         format: String,
@@ -68,7 +80,7 @@ const appConfig = convict({
     baseUrl: {
         doc: 'The application base URL',
         format: 'url',
-        default: 'https://www.apple.com',
+        default: 'http://3.17.120.50/',
         env: 'BASE_URL',
     },
     maxInstances: {
@@ -92,7 +104,8 @@ const appConfig = convict({
                 'goog:chromeOptions': {
                     // to run chrome headless the following flags are required
                     // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
-                    // args: ['--headless', '--disable-gpu'],
+                    // args: ['--headless', '--disable-gpu'],//
+                    args: ['–-enable-precise-memory-info', '--js-flags=--expose-gc'],
                 },
                 [EXTRA_OPTIONS]: {},
             },
